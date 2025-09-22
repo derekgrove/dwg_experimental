@@ -217,7 +217,7 @@ def make_1d2d_hist_reg_cat(
 
     # flatten arrays, store in dict to be deconstructed later in the fill method
     flat_vars = {
-        var1_name: ak.flatten(obj_var),
+        var_name: ak.flatten(obj_var),
         cat1_name: ak.flatten(obj_cat1),
         cat2_name: ak.flatten(obj_cat2)
     }
@@ -269,7 +269,7 @@ def make_1d2d_hist_var_cat(
 
     # flatten arrays, store in dict to be deconstructed later in the fill method
     flat_vars = {
-        var1_name: ak.flatten(obj_var),
+        var_name: ak.flatten(obj_var),
         cat1_name: ak.flatten(obj_cat1),
         cat2_name: ak.flatten(obj_cat2)
     }

@@ -56,7 +56,7 @@ def analysis_dict(obj):
     #############
 
     gens = [-10, 10, 11, 12, 13] #I added 1 in front for gens so I know I don't accidentally get it mixed up with qual
-    quals = [-1,0,1,2,3]
+    quals = [-1,1,2,3]
     
     pt_eta_hist = make_2d2d_hist_cat(
         obj,                           
@@ -82,7 +82,7 @@ def analysis_dict(obj):
     var_abs=False,
     )
 
-    pt_bins = [2,3,4,5,7,10,12.5,15.0,17.5,20.0,
+    pt_bins_v1 = [2,3,4,5,7,10,12.5,15.0,17.5,20.0,
                22.5,25.0,27.5,30.0,32.5,35.0,
                37.5,40.0,42.5,45.0,47.5,50.0,
                52.5,55.0,57.5,60.0,62.5,65.0,
@@ -92,7 +92,45 @@ def analysis_dict(obj):
     
     pt_AN_v2 = make_1d2d_hist_var_cat(
     obj,
-    pt_bins, 
+    pt_bins_v1, 
+    cat1_binning = gens,
+    cat2_binning = quals,
+    var_name="pt",
+    cat1_name="gen_tag",
+    cat2_name="qual_tag",
+    var_abs=False,
+    )
+
+    pt_bins_v2 = [2,5,7.5,10,12.5,15.0,17.5,20.0,
+               22.5,25.0,27.5,30.0,32.5,35.0,
+               37.5,40.0,42.5,45.0,47.5,50.0,
+               52.5,55.0,57.5,60.0,62.5,65.0,
+               67.5,70.0,72.5,75.0,77.5,80.0,
+               82.5,85.0,87.5,90.0,92.5,95.0,
+               97.5,100.0]
+    
+    pt_AN_v3 = make_1d2d_hist_var_cat(
+    obj,
+    pt_bins_v2, 
+    cat1_binning = gens,
+    cat2_binning = quals,
+    var_name="pt",
+    cat1_name="gen_tag",
+    cat2_name="qual_tag",
+    var_abs=False,
+    )
+
+    pt_bins_muon = [3,5,7.5,10,12.5,15.0,17.5,20.0,
+               22.5,25.0,27.5,30.0,32.5,35.0,
+               37.5,40.0,42.5,45.0,47.5,50.0,
+               52.5,55.0,57.5,60.0,62.5,65.0,
+               67.5,70.0,72.5,75.0,77.5,80.0,
+               82.5,85.0,87.5,90.0,92.5,95.0,
+               97.5,100.0]
+    
+    pt_AN_muon = make_1d2d_hist_var_cat(
+    obj,
+    pt_bins_muon, 
     cat1_binning = gens,
     cat2_binning = quals,
     var_name="pt",
@@ -111,6 +149,8 @@ def analysis_dict(obj):
         "pt_eta_hist": pt_eta_hist,
         "pt_AN_hist_v1": pt_AN_v1,
         "pt_AN_hist_v2": pt_AN_v2,
+        "pt_AN_hist_v3": pt_AN_v3,
+        "pt_AN_hist_muon": pt_AN_muon,
     }
 
     return results

@@ -12,12 +12,12 @@ current_dir = Path.cwd()
 src_dir = current_dir.parent.parent / "src"
 sys.path.append(str(src_dir))
 
-#print(src_dir)
+# print(src_dir)
 
 from analysis_tools.taggers.lep_tagger import *
 from analysis_tools.taggers.gen_tagger import *
 
-from analysis_tools.plotting.default_analysis import tag_and_combine_ele, tag_muon, analysis_dict
+from analysis_tools.default_analysis import tag_and_combine_ele, tag_muon, analysis_dict
 
 
 class Processor(processor.ProcessorABC):
@@ -36,11 +36,13 @@ class Processor(processor.ProcessorABC):
         ele_dict = analysis_dict(ele)
         muon_dict = analysis_dict(muon)
         
+        
         output = {
             "total_entries": ak.num(events[events.run >= 0], axis=0),
             
             "ele_dict": ele_dict,
             "muon_dict": muon_dict,
+            
         }
 
             

@@ -104,7 +104,7 @@ def tag_ele_quality(ele):  # use on raw Electron collection (Awkward/NanoEvents)
     ele['isBronze']   = bronze_mask
 
     ele["qual_tag"] = -1 # Filling everything with dummy values for now
-    ele["qual_tag"] = ak.where(ele.isBaseline, 0, ele.qual_tag)
+    ele["qual_tag"] = ak.where(ele.isBaseline, 0, ele.qual_tag) #this just always got overwritten by the bronze, silver, or gold
     ele["qual_tag"] = ak.where(ele.isBronze, 1, ele.qual_tag) # similar for 1
     ele["qual_tag"] = ak.where(ele.isSilver, 2, ele.qual_tag) # similar for 1
     ele["qual_tag"] = ak.where(ele.isGold, 3, ele.qual_tag) # similar for 1
@@ -133,6 +133,27 @@ def tag_lpte_quality(lpte): #use on raw lpte collection
         ((abs_eta >= 0.8) & (abs_eta < 1.442) & (lpte.ID >= 3)) |
         ((abs_eta < 0.8) & (lpte.ID >= 2.3))
     )
+
+    """
+    if (pt >= 2. && pt < 5.) {
+        if (absEta >= 1.48 && absEta < 2.5)
+          passesID = false; // always Bronze
+        else if (absEta >= 0.8 && absEta < 1.48)
+          passesID = id >= 3;
+        else if (absEta < 0.8)
+          passesID = id >= 2.3;
+      }
+
+        else if (pt >= 5. && pt < 7.) {
+        if (absEta >= 1.48 && absEta < 2.5)
+          passesID = id >= 3.5;
+        else if (absEta >= 0.8 && absEta < 1.48)
+          passesID = id >= 3;
+        else if (absEta < 0.8)
+          passesID = id >= 2.3;
+      }
+    """
+
     pt        = lpte.pt
     miniIsoPt = lpte.miniPFRelIso_all * pt
 
