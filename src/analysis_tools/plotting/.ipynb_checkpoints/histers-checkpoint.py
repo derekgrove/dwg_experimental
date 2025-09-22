@@ -343,3 +343,110 @@ def make_2d2d_hist_cat(
 
     return hist
 
+def make_2d2d_hist_cat_1reg(
+    obj,
+    var1_binning,
+    var2_binning,
+    cat1_binning,
+    cat2_binning,
+    var1_name="pt",
+    var2_name="eta",
+    cat1_name="gen_tag",
+    cat2_name="qual_tag",
+    var1_abs=False,
+    var2_abs=False
+    ):
+    
+    """
+    Create a 2D x 2D histogram with two numeric variables and two integer categories (typically gen and quality).
+    """
+
+    # Extract variables and categories from the object
+    obj_var1 = getattr(obj, var1_name)
+    obj_var2 = getattr(obj, var2_name)
+    obj_cat1 = getattr(obj, cat1_name)
+    obj_cat2 = getattr(obj, cat2_name)
+
+    # take absolute value if needed (like for eta or phi, maybe)
+    if var1_abs:
+        obj_var1 = np.abs(obj_var1)
+    if var2_abs:
+        obj_var2 = np.abs(obj_var2)
+
+    # flatten arrays, store in dict to be deconstructed later in the fill method
+    flat_vars = {
+        var1_name: ak.flatten(obj_var1),
+        var2_name: ak.flatten(obj_var2),
+        cat1_name: ak.flatten(obj_cat1),
+        cat2_name: ak.flatten(obj_cat2)
+    }
+
+    bins, start, stop = var2_binning
+    hist = (
+        dah.Hist.new
+        .Variable(var1_binning, name=var1_name, label=var1_name)
+        .Reg(bins, start, stop, name=var2_name, label=var2_name)
+        .IntCat(cat1_binning, name=cat1_name)
+        .IntCat(cat2_binning, name=cat2_name)
+        .Double()
+    )
+
+    # deconstruct dict, it just works
+    hist.fill(**flat_vars)
+
+    return hist
+
+def make_2d2d_hist_cat_2reg(
+    obj,
+    var1_binning,
+    var2_binning,
+    cat1_binning,
+    cat2_binning,
+    var1_name="pt",
+    var2_name="eta",
+    cat1_name="gen_tag",
+    cat2_name="qual_tag",
+    var1_abs=False,
+    var2_abs=False
+    ):
+    
+    """
+    Create a 2D x 2D histogram with two numeric variables and two integer categories (typically gen and quality).
+    """
+
+    # Extract variables and categories from the object
+    obj_var1 = getattr(obj, var1_name)
+    obj_var2 = getattr(obj, var2_name)
+    obj_cat1 = getattr(obj, cat1_name)
+    obj_cat2 = getattr(obj, cat2_name)
+
+    # take absolute value if needed (like for eta or phi, maybe)
+    if var1_abs:
+        obj_var1 = np.abs(obj_var1)
+    if var2_abs:
+        obj_var2 = np.abs(obj_var2)
+
+    # flatten arrays, store in dict to be deconstructed later in the fill method
+    flat_vars = {
+        var1_name: ak.flatten(obj_var1),
+        var2_name: ak.flatten(obj_var2),
+        cat1_name: ak.flatten(obj_cat1),
+        cat2_name: ak.flatten(obj_cat2)
+    }
+
+    bins1, start1, stop1 = var1_binning
+    bins2, start2, stop2 = var2_binning
+    
+    hist = (
+        dah.Hist.new
+        .Reg(bins1, start1, stop1, name=var1_name, label=var1_name)
+        .Reg(bins2, start2, stop2, name=var2_name, label=var2_name)
+        .IntCat(cat1_binning, name=cat1_name)
+        .IntCat(cat2_binning, name=cat2_name)
+        .Double()
+    )
+
+    # deconstruct dict, it just works
+    hist.fill(**flat_vars)
+
+    return hist

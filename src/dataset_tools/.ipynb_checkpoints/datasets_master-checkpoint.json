@@ -11,7 +11,7 @@
                 "REMOTE_DIRECTORY": "/SMS-TChiWZ_ZToLL_mZMin-0p1_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v1/NANOAODSIM",
                 "REDIRECTOR": "root://cms-xrd-global.cern.ch/",
                 "numEvents": {},
-                "preprocessed_file": {}
+                "preprocessed_file": "preprocessed/pp_SMS-TChiWZ_ZToLL_mZMin-0p1_TuneCP5_13TeV-madgraphMLM-pythia8_2017UL_100000_available.json.gz"
             },
             "TSlepSlep_UL": {
                 "notes": "SUSY Signal Sample from 2017, used in our Run2 analysis, but this one is reprocessed for Ultra Legacy",
@@ -24,6 +24,18 @@
                 "REDIRECTOR": "root://cms-xrd-global.cern.ch/",
                 "numEvents": {},
                 "preprocessed_file": {}
+            },
+            "TTtoDiJet": {
+                "notes": "Used by Suyash and Alice for Run2 UL studies",
+                "isMC": true,
+                "postBPix": false,
+                "custom_tag": "BG",
+                "AOD_version": "9",
+                "branch": "Events",
+                "REMOTE_DIRECTORY": "dataset=/TTJets_DiLept_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v1/NANOAODSIM",
+                "REDIRECTOR": "root://cms-xrd-global.cern.ch/",
+                "numEvents": {},
+                "preprocessed_file": "preprocessed/pp_TTJets_DiLept_TuneCP5_13TeV-madgraphMLM-pythia8_2017UL_100000_available.json.gz"
             }
         },
         "2023": {

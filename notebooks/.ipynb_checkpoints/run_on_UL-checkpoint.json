@@ -1,0 +1,28 @@
+{
+  "NANO": {
+    "2017": {
+      "TChiWZ_UL": {
+        "run": true,
+        "reduced_computation": true,
+        "use_client": false,
+        "num_chunks": 5,
+        "num_files": 10
+      },
+      "TSlepSlep_UL": {
+        "run": false,
+        "reduced_computation": true,
+        "use_client": false,
+        "num_chunks": 1,
+        "num_files": 1
+      },
+      "TTtoDiJet": {
+        "run": true,
+        "reduced_computation": true,
+        "use_client": false,
+        "num_chunks": 10,
+        "num_files": 10
+      }
+    }
+}
+}
+    

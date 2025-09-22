@@ -10,8 +10,8 @@ current_dir = Path.cwd()
 
 from .plotting.histers import *
 #from ../taggers.lep_tagger import *
-from .taggers.lep_tagger import *
-from .taggers.gen_tagger import *
+#from .taggers.lep_tagger import *
+#from .taggers.gen_tagger import *
 
 class default_analysis:
 
@@ -25,12 +25,26 @@ class default_analysis:
         )
         #self.pt = pt
         #self.pt = getattr(self, 'pt')
-        
+
+"""
+
+def tag_ele(ele):
+    
+    return tag_qual(tag_gen(ele, 'ele'), 'ele')
+
+def tag_lpte(lpte):
+    
+    return tag_qual(tag_gen(lpte, 'lpte'), 'lpte')
+
+def tag_muon(muon):
+    
+    return tag_qual(tag_gen(muon, 'muon'), 'muon')
+
     
 def tag_and_combine_ele(electron, lowptelectron):
     
-    tagged_ele = tag_qual(tag_gen(electron, 'ele'), 'ele')
-    tagged_lpte = tag_qual(tag_gen(lowptelectron, 'lpte'), 'lpte')
+    tagged_ele = tag_ele(electron)
+    tagged_lpte = tag_lpte(lowptelectron)
 
     pt_selected_electron = tagged_ele[tagged_ele.pt >= 7]
     pt_selected_lpte = tagged_lpte[tagged_lpte.pt < 7]
@@ -38,14 +52,12 @@ def tag_and_combine_ele(electron, lowptelectron):
     ele = ak.concatenate([pt_selected_electron, pt_selected_lpte], axis=1)
 
     return ele
+"""
 
 
-def tag_muon(muon):
-    
-    return tag_qual(tag_gen(muon, 'muon'), 'muon')
     
 
-def analysis_dict(obj):
+def lep_analysis_dict(obj):
     
     """
     structure will be a dict with lots of hists of various configurations
@@ -139,6 +151,10 @@ def analysis_dict(obj):
     var_abs=False,
     )
 
+    
+
+    
+
 # (obj, var_binning, cat_binning, var_name = "pt", cat_name="genPartFlav")
 
     ################
@@ -150,12 +166,61 @@ def analysis_dict(obj):
         "pt_AN_hist_v1": pt_AN_v1,
         "pt_AN_hist_v2": pt_AN_v2,
         "pt_AN_hist_v3": pt_AN_v3,
-        "pt_AN_hist_muon": pt_AN_muon,
+        "pt_AN_hist_muon": pt_AN_muon
     }
 
     return results
 
 
+def lpte_analysis_dict(obj): # has lpte specific variables, do not run on a collection without these variables
+    
+    """
+    structure will be a dict with lots of hists of various configurations
+    """
+    
+    ##############
+    # fill hists #
+    #############
+
+    gens = [-10, 10, 11, 12, 13] #I added 1 in front for gens so I know I don't accidentally get it mixed up with qual
+    quals = [-1,1,2,3]
+    
+    pt_eta_hist = make_2d2d_hist_cat(
+        obj,                           
+        [1,2,3,4,5,7,10,20,45,75,1000], 
+        [0,0.8,1.442,1.556,2.5],
+        cat1_binning = gens,
+        cat2_binning = quals,
+        var1_name = 'pt',
+        var2_name = 'eta',
+        cat1_name='gen_tag',
+        cat2_name='qual_tag',
+        var2_abs=True
+       )
+
+    pt_ID_hist = make_2d2d_hist_cat_2reg(
+        obj,                           
+        [20,0,20], 
+        [100,0,10],
+        cat1_binning = gens,
+        cat2_binning = quals,
+        var1_name = 'pt',
+        var2_name = 'ID',
+        cat1_name='gen_tag',
+        cat2_name='qual_tag',
+        var2_abs=True
+       )  
+
+    ################
+    # fill results #
+    ###############
+
+    results = {
+        "pt_eta_hist": pt_eta_hist,
+        "pt_ID_hist": pt_ID_hist,
+    }
+
+    return results
 
 
 
