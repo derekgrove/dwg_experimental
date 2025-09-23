@@ -158,32 +158,8 @@ def tag_lpte_quality(lpte): #use on raw lpte collection
     central_eta_ID = (
         ((abs_eta >= 0.8) & (abs_eta < 1.442) & (lpte.ID >= 3)) |
         ((abs_eta < 0.8) & (lpte.ID >= 2.3))
+        #((abs_eta < 0.8) & (lpte.ID >= 2.5))
     )
-
-    central_eta_ID_test = (
-        ((abs_eta >= 0.8) & (abs_eta < 1.442) & (lpte.ID >= 3)) |
-        ((abs_eta < 0.8) & (lpte.ID >= 2.5))
-    )
-
-    """
-    if (pt >= 2. && pt < 5.) {
-        if (absEta >= 1.48 && absEta < 2.5)
-          passesID = false; // always Bronze
-        else if (absEta >= 0.8 && absEta < 1.48)
-          passesID = id >= 3;
-        else if (absEta < 0.8)
-          passesID = id >= 2.3;
-      }
-
-        else if (pt >= 5. && pt < 7.) {
-        if (absEta >= 1.48 && absEta < 2.5)
-          passesID = id >= 3.5;
-        else if (absEta >= 0.8 && absEta < 1.48)
-          passesID = id >= 3;
-        else if (absEta < 0.8)
-          passesID = id >= 2.3;
-      }
-    """
 
     pt        = lpte.pt
     miniIsoPt = lpte.miniPFRelIso_all * pt
@@ -199,19 +175,9 @@ def tag_lpte_quality(lpte): #use on raw lpte collection
         & (lpte.convVeto == 1)
         & (lpte.lostHits == 0)
         & (lpte.ID >= 1.5)
+        #& (lpte.ID >= 2)
     )
 
-    baseline_mask_test = (
-        ((pt >= 2) & (pt < 7))
-        & (abs_eta < 1.442)
-        & (sip3d < 6)
-        & (abs_dxy < 0.05)
-        & (abs_dz  < 0.1)
-        & (miniIsoPt < (20 + 300/pt))
-        & (lpte.convVeto == 1)
-        & (lpte.lostHits == 0)
-        & (lpte.ID >= 2)
-    )
 
     # --- Quality tags ---
 
@@ -233,6 +199,7 @@ def tag_lpte_quality(lpte): #use on raw lpte collection
 
     bronze_mask = baseline_mask & ~gold_silver_mask
 
+
     lpte['isBaseline'] = baseline_mask
     lpte['isGold']     = gold_mask
     lpte['isSilver']   = silver_mask
@@ -243,8 +210,7 @@ def tag_lpte_quality(lpte): #use on raw lpte collection
     lpte["qual_tag"] = ak.where(lpte.isBronze, 1, lpte.qual_tag)
     lpte["qual_tag"] = ak.where(lpte.isSilver, 2, lpte.qual_tag)
     lpte["qual_tag"] = ak.where(lpte.isGold, 3, lpte.qual_tag)
-
-
+    
     return lpte
 
 

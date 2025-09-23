@@ -73,7 +73,7 @@ def lep_analysis_dict(obj):
     pt_eta_hist = make_2d2d_hist_cat(
         obj,                           
         [2,3,4,5,7,10,20,45,75,1000], 
-        [0,0.8,1.442,1.556,2.5],
+        [0,0.8,1.4442,1.556,2.5],
         cat1_binning = gens,
         cat2_binning = quals,
         var1_name = 'pt',
@@ -188,7 +188,7 @@ def lpte_analysis_dict(obj): # has lpte specific variables, do not run on a coll
     pt_eta_hist = make_2d2d_hist_cat(
         obj,                           
         [1,2,3,4,5,7,10,20,45,75,1000], 
-        [0,0.8,1.442,1.556,2.5],
+        [0,0.8,1.4442,1.556,2.5],
         cat1_binning = gens,
         cat2_binning = quals,
         var1_name = 'pt',
@@ -221,71 +221,4 @@ def lpte_analysis_dict(obj): # has lpte specific variables, do not run on a coll
     }
 
     return results
-
-
-
-def analysis_dict_old(obj, ID=None): #pushed this here, problem is "how do I combine electrons and lowpt electrons inside? maybe another function defined above that can tag and combine them but then I add a boolean flag in here to call that function for me
-    
-    """
-    structure will be a dict with lots of hists of various configurations
-    """
-
-    acceptable_IDs = [
-        'ele', 'electron',
-        'lpte', 'lowptelectron',
-        'mu', 'muon'] #more can be added, maybe jets and whatever if needed
-
-    ############
-    # taggers #
-    ###########
-    
-    if ID.lower() not in acceptable_IDs:
-        
-        sys.exit(f'ID {ID} not acceptable, must be in {acceptable_IDs}')
-    
-    else:
-        tagged_obj = tag_qual(tag_gen(obj, ID), ID)
-
-    #now lep has these flags: qual_tag and gen_tag
-    
-    #qual_tag = [-1,0,1,2,3]
-    #where -1 fails baseline, 0 is baseline, 1 is bronze, 2 silver, 3 gold
-    
-    #gen_tag = [-10, 10, 11, 12, 13]
-    # where -10 is other gen, 10 signal, 11 is light fake, 12 is heavy decay, 13 tau decay
-    
-    ##############
-    # fill hists #
-    #############
-
-    gens = [-10, 10, 11, 12, 13] #I added 1 in front for gens so I know I don't accidentally get it mixed up with qual
-    quals = [-1,0,1,2,3]
-    
-    pt_eta_hist = get_2d2d_hist_cat(
-        obj,                           
-        [2,3,4,5,7,10,20,45,75,1000], 
-        [0,0.8,1.442,1.556,2.5],
-        cat1_binning = gens,
-        cat2_binning = quals,
-        var1_name = 'pt',
-        var2_name = 'eta',
-        cat1_name='gen_tag',
-        cat2_name='qual_tag',
-        var2_abs=True
-       )
-
-    ################
-    # fill results #
-    ###############
-
-    results = {
-        "pt_eta_hist": pt_eta_hist,
-    }
-
-    return results
-
-
-
-        
-
     
