@@ -174,8 +174,8 @@ def tag_lpte_quality(lpte): #use on raw lpte collection
         & (miniIsoPt < (20 + 300/pt))
         & (lpte.convVeto == 1)
         & (lpte.lostHits == 0)
-        & (lpte.ID >= 1.5)
-        #& (lpte.ID >= 2)
+        #& (lpte.ID >= 1.5)
+        & (lpte.ID >= 2)
     )
 
 
