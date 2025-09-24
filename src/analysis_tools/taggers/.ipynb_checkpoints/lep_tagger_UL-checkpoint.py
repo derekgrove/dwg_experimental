@@ -151,18 +151,27 @@ def tag_lpte_quality(lpte): #use on raw lpte collection
     """
     
     # define variables
+    pt        = lpte.pt
     abs_eta   = np.abs(lpte.eta)
     sip3d     = lpte_sip3d(lpte)
     abs_dxy   = np.abs(lpte.dxy)
     abs_dz    = np.abs(lpte.dz)
-    central_eta_ID = (
-        ((abs_eta >= 0.8) & (abs_eta < 1.442) & (lpte.ID >= 3)) |
-        ((abs_eta < 0.8) & (lpte.ID >= 2.3))
-        #((abs_eta < 0.8) & (lpte.ID >= 2.5))
-    )
-
-    pt        = lpte.pt
     miniIsoPt = lpte.miniPFRelIso_all * pt
+    #central_eta_ID = (
+    #    ((abs_eta >= 0.8) & (abs_eta < 1.442) & (lpte.ID >= 3)) |
+    #    ((abs_eta < 0.8) & (lpte.ID >= 2.3))
+        #((abs_eta < 0.8) & (lpte.ID >= 2.5))
+    #)
+    
+    central_eta_ID = (
+        ((pt < 4) &
+        (((abs_eta >= 0.8) & (abs_eta < 1.442) & (lpte.ID >= 3)) |
+        ((abs_eta < 0.8) & (lpte.ID >= 2.6)))) |
+        ((pt >= 4) &
+        (((abs_eta >= 0.8) & (abs_eta < 1.442) & (lpte.ID >= 3.2)) |
+        ((abs_eta < 0.8) & (lpte.ID >= 2.8))))
+    )
+   
 
     # --- Baseline selection ---
     baseline_mask = (
@@ -174,7 +183,6 @@ def tag_lpte_quality(lpte): #use on raw lpte collection
         & (miniIsoPt < (20 + 300/pt))
         & (lpte.convVeto == 1)
         & (lpte.lostHits == 0)
-        #& (lpte.ID >= 1.5)
         & (lpte.ID >= 2)
     )
 

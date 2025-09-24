@@ -2,6 +2,7 @@
 import json
 
 from .vid_unpacked import *
+from .gen_tagger import *
 import numpy as np
 import awkward as ak
 
@@ -28,6 +29,32 @@ def tag_qual(obj, ID):
         obj = tag_muon_quality(obj)
 
     return obj
+
+
+def tag_ele(ele):
+    
+    return tag_qual(tag_gen(ele, 'ele'), 'ele')
+
+def tag_lpte(lpte):
+    
+    return tag_qual(tag_gen(lpte, 'lpte'), 'lpte')
+
+def tag_muon(muon):
+    
+    return tag_qual(tag_gen(muon, 'muon'), 'muon')
+
+    
+def tag_and_combine_ele(electron, lowptelectron):
+    
+    tagged_ele = tag_ele(electron)
+    tagged_lpte = tag_lpte(lowptelectron)
+
+    pt_selected_electron = tagged_ele[tagged_ele.pt >= 7]
+    pt_selected_lpte = tagged_lpte[tagged_lpte.pt < 7]
+
+    ele = ak.concatenate([pt_selected_electron, pt_selected_lpte], axis=1)
+
+    return ele
 
 
 ##################################################
