@@ -1,33 +1,56 @@
 {
   "NANO": {
+    "2017": {
+      "TChiWZ_UL": {
+        "run": false,
+        "reduced_computation": true,
+        "use_client": false,
+        "num_chunks": 1,
+        "num_files": 1
+      },
+      "TSlepSlep_UL": {
+        "run": false,
+        "reduced_computation": true,
+        "use_client": false,
+        "num_chunks": 1,
+        "num_files": 1
+      },
+      "TTtoDiJet": {
+        "run": false,
+        "reduced_computation": true,
+        "use_client": false,
+        "num_chunks": 1,
+        "num_files": 1
+      }
+    },
     "2023": {
       "SlepSnu_MN1-260_MN2-280_MC1-270": {
         "run": false,
-        "reduced_computation": false,
+        "reduced_computation": true,
         "use_client": false,
         "num_chunks": 1,
         "num_files": 1
       },
       "SlepSnu_MN1-220_MN2-260_MC1-240": {
         "run": false,
-        "reduced_computation": false,
+        "reduced_computation": true,
         "use_client": false,
         "num_chunks": 1,
         "num_files": 1
       },
       "SlepSnu_MN1-270_MN2-280_MC1-275": {
-        "run": true,
+        "run": false,
         "reduced_computation": false,
         "use_client": false,
         "num_chunks": 1,
         "num_files": 1
       },
       "TTto2L2Nu": {
-        "run": true,
+        "run": false,
         "reduced_computation": true,
         "use_client": false,
-        "num_chunks": 20,
-        "num_files": 20
+        "num_chunks": 10,
+        "num_files": 10
       },
       "WZ": {
         "run": false,
@@ -45,14 +68,14 @@
       },
       "DY_to2L_2J": {
         "run": false,
-        "reduced_computation": false,
+        "reduced_computation": true,
         "use_client": false,
         "num_chunks": 1,
         "num_files": 1
       },
       "DY_to2L_4J": {
         "run": false,
-        "reduced_computation": false,
+        "reduced_computation": true,
         "use_client": false,
         "num_chunks": 1,
         "num_files": 1
@@ -60,6 +83,22 @@
       "Prompt_JPsi_toEE_pth10toInf": {
         "run": false,
         "reduced_computation": true,
+        "use_client": false,
+        "num_chunks": 1,
+        "num_files": 1
+      },
+      "WtoLNu-2Jets": {
+        "run": true,
+        "reduced_computation": false,
+        "use_client": false,
+        "num_chunks": 1,
+        "num_files": 1
+      }
+    },
+    "2022": {
+      "Justin_TChiWZ_22": {
+        "run": true,
+        "reduced_computation": false,
         "use_client": false,
         "num_chunks": 1,
         "num_files": 1
